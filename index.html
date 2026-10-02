@@ -157,19 +157,18 @@ iframe {
 
  
 
-            <!-- Game Card 2: Your 50MB Game --> 
+            <!-- Add this card into your Microsoft Store app grid list --> 
 
-            <a href="?game=heavygame" class="game-card"> 
-
-                <img src="heavy-logo.png" class="game-thumbnail" alt="Game Logo"> 
-
-                <div class="game-title">Massive Game</div> 
-
-                <div class="game-developer">Free Games</div> 
-
+            <a href="?game=https://cdn.jsdelivr.net/gh/CloudMoonApp/web@main/260909.svg" class="game-card"> 
+                
+                <div class="game-icon" style="background: linear-gradient(135deg, #120c1f, #8b5cf6);">🌙</div> 
+                
+                <div class="game-title">CloudMoon Remote App (CDN)</div> 
+                
+                <div class="game-developer">Free • Cloud Stream Platform</div> 
+            
             </a> 
 
- 
 
         </div> 
 
@@ -177,21 +176,41 @@ iframe {
 
  
 
-    <script> 
-
-        const urlParams = new URLSearchParams(window.location.search); 
-
+    <script>
+       
+       const urlParams = new URLSearchParams(window.location.search); 
+        
         const gameName = urlParams.get('game'); 
-
+        
         if (gameName) { 
-
+            
             document.getElementById('store-layer').style.display = 'none'; 
-
+            
             document.getElementById('game-layer').style.display = 'block'; 
+            
+        let finalUrl = ""; 
 
-            document.getElementById('iframe-target').innerHTML = `<iframe src="HTML Games/${gameName}.html" allow="autoplay"></iframe>`; 
-
+        }
+        
+        // Check if the parameter is an external CDN web link  
+    
+        if (gameName.startsWith('http://') || gameName.startsWith('https://')) { 
+            
+            finalUrl = gameName; 
+        
+            } else { 
+                // Otherwise, pull it locally from your games folder configuration 
+                
+                finalUrl = `games/${gameName}.html`; 
+            
         } 
+
+     
+
+    // Inject the frame smoothly into your centered widescreen player 
+
+    document.getElementById('iframe-target').innerHTML = `<iframe src="${finalUrl}" allow="autoplay; gamepad; fullscreen;"></iframe>`; 
+        
 
     </script> 
 
